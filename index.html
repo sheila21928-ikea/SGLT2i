@@ -683,17 +683,64 @@ new Chart(document.getElementById('epiChart'),{type:'bar',
     scales:{...co.scales,y:{...co.scales.y,title:{display:true,text:'盛行率 (%)',color:'#9db0cc'}}}}});
 
 /* eGFR slope line - golden crossover */
-const months=[0,2,4,8,12,16,20,24,28];
-function slope(base,rate,dip){return months.map(m=>{const y=m/12; return +(base - (dip||0) - rate*y).toFixed(2);});}
+const slopeMonths=[0,0.5,2,4,8,12,16,20,24,28,32,36];
+const placeboChange=[0,-0.8,-1.25,-1.65,-2.6,-4.05,-5.6,-6.55,-7.65,-8.75,-10.1,-11.3];
+const dapaChange=[0,-3.9,-3.35,-3.0,-3.65,-4.35,-5.15,-5.75,-6.6,-7.4,-8.35,-8.7];
+const goldenCrossoverPlugin={
+  id:'goldenCrossoverPlugin',
+  afterDatasetsDraw(chart){
+    if(chart.canvas.id!=='slopeChart') return;
+    const {ctx,chartArea:{top,bottom},scales:{x}}=chart;
+    const crossoverMonth=13.5;
+    const xPos=x.getPixelForValue(crossoverMonth);
+    ctx.save();
+    ctx.setLineDash([3,4]);
+    ctx.strokeStyle='#ff3b30';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(xPos,top+128);
+    ctx.lineTo(xPos,bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e3c784';
+    ctx.font='600 12px Inter, Noto Sans TC, sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('黃金交叉約 13–14 月',xPos,top+114);
+    ctx.textAlign='left';
+    ctx.fillStyle='#14aee8';
+    ctx.font='700 14px Inter, Noto Sans TC, sans-serif';
+    ctx.fillText('Dapagliflozin',x.getPixelForValue(4),top+158);
+    ctx.fillStyle='#bfc1c5';
+    ctx.fillText('Placebo',x.getPixelForValue(4.8),top+88);
+    ctx.font='700 16px Inter, Noto Sans TC, sans-serif';
+    ctx.fillStyle='#14aee8';
+    ctx.fillText('−1.67 mL/min/1.73 m² per year',x.getPixelForValue(21),top+118);
+    ctx.fillStyle='#bfc1c5';
+    ctx.fillText('−3.59 mL/min/1.73 m² per year',x.getPixelForValue(15.5),bottom-58);
+    ctx.font='600 12px Inter, Noto Sans TC, sans-serif';
+    ctx.fillText('(97% with RAASi)',x.getPixelForValue(15.5),bottom-36);
+    ctx.fillStyle='#8a8f96';
+    ctx.fillText('Difference 1.92 mL/min/1.73 m² per year (95% CI, 1.61–2.24)',x.getPixelForValue(19),top+34);
+    ctx.fillStyle='#d3e4ff';
+    ctx.fillText('Baseline eGFR 43 (age 62 years)',x.getPixelForValue(1.5),bottom-115);
+    ctx.restore();
+  }
+};
+Chart.register(goldenCrossoverPlugin);
 new Chart(document.getElementById('slopeChart'),{type:'line',
-  data:{labels:months.map(m=>m+' 月'),
-    datasets:[
-      {label:'Placebo (−3.59/年)',data:slope(43,3.59,0),borderColor:'#e7a7a4',backgroundColor:'#e7a7a422',borderWidth:2.5,tension:.15,fill:true,pointRadius:0},
-      {label:'Dapagliflozin (−1.67/年)',data:months.map(m=>{const y=m/12; const dip=m<=1?1.8*m:1.8; return +(43-dip-1.67*y).toFixed(2);}),borderColor:'#63d6e6',backgroundColor:'#63d6e622',borderWidth:2.5,tension:.15,fill:true,pointRadius:0}
+  data:{datasets:[
+      {label:'Placebo (−3.59/年)',data:slopeMonths.map((m,i)=>({x:m,y:placeboChange[i]})),borderColor:'#bfc1c5',backgroundColor:'#bfc1c522',borderWidth:2.5,tension:.12,fill:false,pointRadius:4,pointHoverRadius:5,pointBackgroundColor:'#bfc1c5',pointBorderColor:'#bfc1c5'},
+      {label:'Dapagliflozin (−1.67/年)',data:slopeMonths.map((m,i)=>({x:m,y:dapaChange[i]})),borderColor:'#14aee8',backgroundColor:'#14aee822',borderWidth:2.8,tension:.12,fill:false,pointRadius:4,pointHoverRadius:5,pointBackgroundColor:'#14aee8',pointBorderColor:'#14aee8'}
     ]},
   options:{...co,
-    plugins:{...co.plugins,tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' mL/min/1.73m²'}}},
-    scales:{...co.scales,y:{...co.scales.y,title:{display:true,text:'eGFR (mL/min/1.73m²)',color:'#9db0cc'},min:30,max:45}}}});
+    interaction:{mode:'nearest',intersect:false},
+    plugins:{...co.plugins,tooltip:{callbacks:{title:items=>items[0].parsed.x+' 月',label:c=>c.dataset.label+': '+c.parsed.y+' mL/min/1.73m²'}},
+      legend:{labels:{color:'#d3e4ff',font:{size:13},usePointStyle:true,pointStyleWidth:10}},
+      title:{display:true,text:'DAPA-CKD: slow 54% decline in eGFR',color:'#ffffff',font:{size:18,weight:'700'}}},
+    scales:{
+      x:{type:'linear',min:0,max:36,title:{display:true,text:'Months since Randomization',color:'#9db0cc'},ticks:{color:'#b3c8e8',stepSize:4,callback:v=>v},grid:{color:'#1f335f'}},
+      y:{...co.scales.y,title:{display:true,text:'Least-Squares Mean Change in Estimated GFR (mL/min/1.73m²)',color:'#9db0cc'},min:-15,max:0,ticks:{color:'#b3c8e8',stepSize:1},grid:{color:'#1f335f'}}
+    }}});
 
 /* advanced CKD slope before/after bar */
 new Chart(document.getElementById('advChart'),{type:'bar',
