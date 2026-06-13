@@ -102,6 +102,15 @@ section.ch{padding:74px 0 24px; scroll-margin-top:20px}
 .panel .cap{color:var(--muted); font-size:.84rem; margin-bottom:18px}
 .chart-box{position:relative; height:340px}
 .adv-screenshot{background:linear-gradient(160deg,#0e1a34,#091226); border:1px solid var(--line); border-radius:12px; padding:12px 16px 8px; height:430px}
+
+/* mechanism chapter */
+.ckm-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:center;margin-top:22px}
+.flow-card{border:1px solid var(--line);border-radius:16px;padding:18px;background:linear-gradient(160deg,#101f3e,#091226);min-height:132px}
+.flow-card h4{color:var(--gold);font-size:.96rem;margin-bottom:8px}.flow-card p{color:var(--muted);font-size:.82rem;line-height:1.55}.flow-card.danger{border-color:#7b3039;background:linear-gradient(160deg,#411822,#11162b)}.flow-card.danger h4{color:#ffb0ad}.flow-card.protect{border-color:#2d665e;background:linear-gradient(160deg,#0d302e,#091226)}.flow-card.protect h4{color:var(--teal)}
+.flow-arrow{color:var(--teal);font-weight:700;text-align:center;font-size:1.6rem}.flow-wide{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #2c5687;border-radius:999px;padding:5px 10px;color:#d5e7ff;background:#0b1b35;font-size:.72rem;margin:4px 6px 0 0}
+.gfr-diagram{position:relative;height:360px;margin-top:22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#101f3e,#091226);padding:22px;overflow:hidden}.gfr-stage{position:absolute;top:18px;bottom:54px;border-left:1px dashed #6f819c;color:#d5e7ff;font-size:.78rem;text-align:center;padding-top:8px}.gfr-stage.s1{left:6%;width:18%}.gfr-stage.s2{left:24%;width:34%}.gfr-stage.s3{left:58%;width:26%}.gfr-stage.s4{left:84%;right:3%}.gfr-line{position:absolute;left:4%;right:8%;bottom:70px;height:235px}.gfr-line svg{width:100%;height:100%;overflow:visible}.axis-label{position:absolute;color:var(--muted);font-size:.76rem}.axis-left{left:18px;top:116px;writing-mode:vertical-rl;transform:rotate(180deg)}.axis-right{right:12px;top:115px;writing-mode:vertical-rl;color:#8fcf55}.nephron-mass{position:absolute;left:4%;right:8%;bottom:20px;height:18px;border-radius:99px;background:linear-gradient(90deg,#d94d4d 0%,#d94d4d 35%,#e88686 62%,#f5d4d4 90%,transparent 100%)}.renal-reserve{position:absolute;left:8%;top:80px;color:#f1ef53;font-size:1.05rem;font-weight:700}.uae-label{position:absolute;right:9%;top:140px;color:#83c35d;font-size:1.4rem;font-weight:700}.mechanism-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}.nephron-card{background:#f4efe6;color:#222;border-radius:16px;padding:20px;border:1px solid #d6cab8;min-height:330px}.nephron-card h4{font-size:1rem;color:#1f335f;margin-bottom:12px}.tubule{height:150px;border:16px solid #d9d2c7;border-left-color:transparent;border-radius:80px;margin:22px 15px;position:relative}.glomerulus{position:absolute;width:82px;height:82px;border-radius:50%;background:radial-gradient(circle,#ffb3a5,#ef7d7d);left:31%;top:-28px;box-shadow:inset 0 0 0 10px #f5c7bd}.macula{position:absolute;right:15%;top:52px;background:#bfe4f3;color:#1f335f;padding:8px 10px;border-radius:8px;font-weight:700}.inhibitor{position:absolute;left:-8px;top:52px;color:#c01860;font-weight:800}.callout{background:#dfe9fb;color:#1f335f;padding:8px 10px;border-radius:4px;margin:6px 0;font-size:.85rem}.big-red{color:#df3b2f;font-weight:800;font-size:1.4rem;background:#ffe89d;padding:0 8px}.renal-protect{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.protect-box{background:#dceaf7;color:#17324b;border:2px solid #75a5c9;border-radius:10px;padding:14px;text-align:center;font-weight:700}.protect-box b{color:#b1243a}.protect-box.main{grid-column:1/-1;background:#9fc1e3}.protect-box.dark{background:#4f82b5;color:white}.mechanism-note{font-size:.88rem;color:var(--muted);margin-top:14px}
+@media(max-width:880px){.ckm-flow,.flow-wide,.mechanism-grid,.renal-protect{grid-template-columns:1fr}.flow-wide{display:grid}.flow-arrow{transform:rotate(90deg)}.gfr-diagram{height:430px}.nephron-card{min-height:auto}}
+
 @media(max-width:880px){.chart-box{height:300px}.adv-screenshot{height:360px; padding:8px}}
 .src{color:var(--muted); font-size:.7rem; margin-top:14px; opacity:.8; letter-spacing:.02em}
 
@@ -263,11 +272,12 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
   <nav class="rail-nav" id="railnav">
     <a href="#hero"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>封面總覽<span class="num">00</span></a>
     <a href="#ch1"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>CKD 負擔與樞紐<span class="num">01</span></a>
-    <a href="#ch2"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V9m7 10V5m7 14v-7"/><path d="M3 19h18"/></svg></span>關鍵試驗證據<span class="num">02</span></a>
-    <a href="#ch3"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="3"/></svg></span>進階 CKD 4–5 期<span class="num">03</span></a>
-    <a href="#ch4"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="0.5"/></svg></span>透析患者研究<span class="num">04</span></a>
-    <a href="#ch5"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></span>亞洲族群與指引<span class="num">05</span></a>
-    <a href="#concl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg></span>核心結論<span class="num">06</span></a>
+    <a href="#ch2"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5M7 16l5 5 5-5"/></svg></span>CKM 與機轉<span class="num">02</span></a>
+    <a href="#ch3"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V9m7 10V5m7 14v-7"/><path d="M3 19h18"/></svg></span>關鍵試驗證據<span class="num">03</span></a>
+    <a href="#ch4"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="3"/></svg></span>進階 CKD 4–5 期<span class="num">04</span></a>
+    <a href="#ch5"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="0.5"/></svg></span>透析患者研究<span class="num">05</span></a>
+    <a href="#ch6"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></span>亞洲族群與指引<span class="num">06</span></a>
+    <a href="#concl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg></span>核心結論<span class="num">07</span></a>
   </nav>
   <div class="rail-foot">
     黃琪雅 醫師　Chi-Ya Huang<br>奇美醫學中心 · 一般內科 / 腎臟科<br>藥劑部專題演講 · 2026
@@ -350,9 +360,78 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
     </div>
   </section>
 
+
   <!-- ===================== CHAPTER 2 ===================== -->
   <section class="ch" id="ch2">
-    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M8 3h8"/></svg>CHAPTER 02 · 臨床實證</div>
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5M7 16l5 5 5-5"/></svg>CHAPTER 02 · CKM 與腎臟機轉</div>
+    <h2>CKM syndrome 與 SGLT2i mechanism</h2>
+    <p class="lead">CKM syndrome 將代謝異常、慢性腎臟病與心血管疾病視為連續光譜。SGLT2i 的關鍵不只在降糖，而是透過近端小管鈉糖再吸收下降、恢復 macula densa 訊號與 tubuloglomerular feedback，降低腎絲球內壓並延伸心腎代保護。</p>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg>CKM syndrome：脂肪、代謝、腎臟與心臟的惡性循環</h3>
+      <p class="cap">對應截圖 1：過量/功能異常脂肪組織與異位脂肪沉積推動發炎、氧化壓力、胰島素阻抗與血管功能障礙，進一步連結腎絲球硬化、CKD 與心肌重塑。</p>
+      <div class="ckm-flow">
+        <div class="flow-card"><h4>Excess / dysfunctional adipose tissue</h4><p>Adipokines、cytokines 與 ectopic fat deposition 促進 MASLD、hypertension、dyslipidemia、metabolic syndrome 與 diabetes。</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-card danger"><h4>核心病理放大器</h4><p>Inflammation、oxidative stress、insulin resistance、vascular dysfunction 互相增強，並同時推動心腎損傷。</p></div>
+        <div class="flow-wide">
+          <div class="flow-card"><h4>腎臟端</h4><p>Glomerular hyperfiltration → glomerulosclerosis、tubulointerstitial fibrosis、albuminuria/proteinuria 與 CKD。</p></div>
+          <div class="flow-card"><h4>心臟端</h4><p>Atherosclerosis、myocardial remodeling、fibrosis 與 cardiac dysfunction。</p></div>
+          <div class="flow-card"><h4>心腎交互作用</h4><p>Neurohormonal activation、plasma volume expansion 與 cardiorenal syndrome 形成回饋環。</p></div>
+          <div class="flow-card protect"><h4>介入樞紐</h4><p>SGLT2i 從腎小管切入，透過血流動力與代謝效應同時影響腎臟、心臟與代謝負荷。</p></div>
+        </div>
+      </div>
+      <p class="src">整理自使用者提供之 CKM syndrome 截圖。</p>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>腎功能自然史：從 renal reserve、高過濾到低過濾</h3>
+      <p class="cap">對應截圖 2：腎元質量下降早期可由 renal functional reserve 代償；當 whole-kidney hyperfiltration 與 albuminuria 上升後，進入不可逆的 GFR 下降軌跡。</p>
+      <div class="gfr-diagram">
+        <div class="gfr-stage s1">Normal filtration<br>Phase 1</div><div class="gfr-stage s2">Hyperfiltration<br>whole-kidney level</div><div class="gfr-stage s3">Normal filtration<br>Phase 2</div><div class="gfr-stage s4">Hypofiltration</div>
+        <div class="axis-label axis-left">Whole kidney GFR</div><div class="axis-label axis-right">Urinary albumin excretion</div>
+        <div class="renal-reserve">Renal<br>functional<br>reserve</div><div class="uae-label">UAE ↑</div>
+        <div class="gfr-line"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,62 C13,48 23,50 33,19 C43,-2 55,21 66,43 C78,68 91,78 100,100" fill="none" stroke="#63d6e6" stroke-width="2.8"/><path d="M0,98 C18,100 37,93 55,77 C70,62 82,15 87,18 C94,24 92,74 98,63" fill="none" stroke="#8fcf55" stroke-width="2.8"/><line x1="0" y1="38" x2="100" y2="38" stroke="#ef6b6b" stroke-width="1"/><line x1="0" y1="78" x2="100" y2="78" stroke="#aaa" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
+        <div class="nephron-mass"></div>
+      </div>
+      <div><span class="badge">~Nephron mass 100% → 50% → 0%</span><span class="badge">GFR 135* hyperfiltration threshold</span><span class="badge">UAE/proteinuria 為警訊</span></div>
+      <p class="src">整理自使用者提供之 GFR/UAE 截圖。</p>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/></svg>SGLT2i：恢復 tubuloglomerular feedback、降低腎絲球內壓</h3>
+      <p class="cap">對應截圖 3：SGLT2 inhibition 減少近端小管 glucose/NaCl 再吸收，增加 NaCl delivery to JGA / macula densa，促進 adenosine signaling 與入球小動脈收縮，讓過高的 filtration pressure 回到較正常狀態。</p>
+      <div class="mechanism-grid">
+        <div class="nephron-card">
+          <h4>1｜近端小管 SGLT2 抑制</h4><div class="tubule"><span class="inhibitor">SGLT2 inhibitor ⊣</span><span class="glomerulus"></span><span class="macula">Macula densa</span></div>
+          <div class="callout">↓ Glucose and NaCl reabsorption via SGLT2</div><div class="callout">↑ NaCl delivery to JGA / macula densa</div><div class="callout">↑ Macula densa feedback</div>
+        </div>
+        <div class="nephron-card">
+          <h4>2｜腎絲球壓力正常化</h4><div class="callout">Adenosine signaling ↑ → afferent arteriole constriction</div><div class="callout">Reversal of vasodilation / vasoconstriction imbalance</div><div class="callout">Normalization of filtration pressure and podocyte stress</div><p style="margin-top:18px;font-weight:700">Following SGLT2 inhibition triggers adenosine and afferent arteriole constriction → <span class="big-red">reduce intraglomerular pressure</span></p>
+        </div>
+      </div>
+      <p class="src">DeFronzo RA, et al. Nat Rev Nephrol. 2021;17(5):319-334；並整理自使用者提供之 SGLT2i mechanism 截圖。</p>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>SGLT2i 的腎臟、心臟與代謝保護網絡</h3>
+      <p class="cap">對應截圖 4：SGLT2i target metabolic periphery，並利用內生性代償機制產生 renal/cardiac protection。</p>
+      <div class="renal-protect">
+        <div class="protect-box main">Renal protection：Albuminuria ↓、renal O₂ consumption / transport work ↓、kidney growth / inflammation ↓</div>
+        <div class="protect-box">GFR ↓（初期 hemodynamic dip）<br>[Na⁺/Cl⁻/K⁺]<sub>MD</sub> ↑、P<sub>Bow</sub> ↑</div>
+        <div class="protect-box">Glucosuria / diuresis<br>Natriuresis / uricosuria</div>
+        <div class="protect-box">ECV / blood pressure ↓<br>Uric acid levels ↓<br>Body weight & fat ↓</div>
+        <div class="protect-box">Insulin need/levels ↓、glucagon ↑<br>Lipolysis & hepatic gluconeogenesis → mild ketosis</div>
+        <div class="protect-box dark">Renal / cardiac protection</div>
+      </div>
+      <p class="mechanism-note"><b>臨床訊息：</b>早期 eGFR dip 多為血流動力學變化，不等於腎毒性；長期則藉由減少腎絲球壓力、蛋白尿、發炎與纖維化，保留腎功能並降低心腎事件。</p>
+      <p class="src">整理自使用者提供之 renal/cardiac protection mechanism 截圖。</p>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 3 ===================== -->
+  <section class="ch" id="ch3">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M8 3h8"/></svg>CHAPTER 03 · 臨床實證</div>
     <h2>SGLT2i 在 CKD 的關鍵試驗</h2>
     <p class="lead">從 1990 年代的 ACEi/ARB，到 2019 年起的 SGLT2i 與 MRA，CKD 治療進入多支柱時代。三大腎臟終點試驗（CREDENCE、DAPA-CKD、EMPA-KIDNEY）奠定 SGLT2i 的器官保護地位。</p>
 
@@ -424,9 +503,9 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
     </div>
   </section>
 
-  <!-- ===================== CHAPTER 3 ===================== -->
-  <section class="ch" id="ch3">
-    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg>CHAPTER 03 · 進階 CKD</div>
+  <!-- ===================== CHAPTER 4 ===================== -->
+  <section class="ch" id="ch4">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg>CHAPTER 04 · 進階 CKD</div>
     <h2>SGLT2i 在 CKD Stage 4–5</h2>
     <p class="lead">即使進入 CKD 4–5 期，SGLT2i 仍能發揮減緩 eGFR 下降的效果，並維持良好安全性。DAPA-advKD 更是首個納入 eGFR<20 患者的 SGLT2i 腎臟終點試驗。</p>
 
@@ -457,9 +536,9 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
     </div>
   </section>
 
-  <!-- ===================== CHAPTER 4 ===================== -->
-  <section class="ch" id="ch4">
-    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>CHAPTER 04 · 透析患者</div>
+  <!-- ===================== CHAPTER 5 ===================== -->
+  <section class="ch" id="ch5">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>CHAPTER 05 · 透析患者</div>
     <h2>SGLT2i 在透析患者：進行中的探索</h2>
     <p class="lead">透析族群的證據仍在累積。多個血液透析與腹膜透析的臨床試驗正在進行中，聚焦 NT-proBNP、左心室質量、超過濾與藥物動力學等終點。</p>
 
@@ -531,9 +610,9 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
     </div>
   </section>
 
-  <!-- ===================== CHAPTER 5 ===================== -->
-  <section class="ch" id="ch5">
-    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18"/></svg>CHAPTER 05 · 亞洲族群與指引</div>
+  <!-- ===================== CHAPTER 6 ===================== -->
+  <section class="ch" id="ch6">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18"/></svg>CHAPTER 06 · 亞洲族群與指引</div>
     <h2>DAPA-CKD 亞洲族群分析與治療指引</h2>
     <p class="lead">亞洲族群是 DAPA-CKD 最大單一區域（31.3%，N=1346）。相較其他區域：年齡較輕、BMI 較低、心血管病史比例最低 —— 反映東亞 CKD 病人特性；但療效與安全性仍穩定一致。</p>
 
@@ -598,7 +677,7 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
 
   <!-- ===================== CONCLUSION ===================== -->
   <section class="ch" id="concl">
-    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg>CHAPTER 06 · Take Home Message</div>
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg>CHAPTER 07 · Take Home Message</div>
     <h2>核心結論</h2>
     <div class="thm">
       <ol>
