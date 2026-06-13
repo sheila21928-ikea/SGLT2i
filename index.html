@@ -101,7 +101,8 @@ section.ch{padding:74px 0 24px; scroll-margin-top:20px}
 .panel h3 svg{width:18px;height:18px;color:var(--teal)}
 .panel .cap{color:var(--muted); font-size:.84rem; margin-bottom:18px}
 .chart-box{position:relative; height:340px}
-@media(max-width:880px){.chart-box{height:300px}}
+.adv-screenshot{background:#fff; border-radius:8px; padding:10px 14px 6px; height:430px}
+@media(max-width:880px){.chart-box{height:300px}.adv-screenshot{height:360px; padding:8px}}
 .src{color:var(--muted); font-size:.7rem; margin-top:14px; opacity:.8; letter-spacing:.02em}
 
 /* KPI grid */
@@ -421,7 +422,7 @@ footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradien
     <div class="panel">
       <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>eGFR 斜率改善 (Stage 4–5)</h3>
       <p class="cap">台灣 AdvKD 研究與 DAPA-advKD：治療前後 eGFR 年下降速率比較</p>
-      <div class="chart-box"><canvas id="advChart"></canvas></div>
+      <div class="chart-box adv-screenshot"><canvas id="advChart"></canvas></div>
       <p class="src">AdvKD：Hung CC, et al. 2023 TSN Congress. DAPA-advKD：median 84-week follow-up。AstraZeneca does not recommend use outside approved indications.</p>
     </div>
 
@@ -742,18 +743,56 @@ new Chart(document.getElementById('slopeChart'),{type:'line',
       y:{...co.scales.y,title:{display:true,text:'Least-Squares Mean Change in Estimated GFR (mL/min/1.73m²)',color:'#9db0cc'},min:-15,max:0,ticks:{color:'#b3c8e8',stepSize:1},grid:{color:'#1f335f'}}
     }}});
 
-/* advanced CKD slope before/after bar */
-new Chart(document.getElementById('advChart'),{type:'bar',
-  data:{labels:['AdvKD\n治療前','AdvKD\n治療後','DAPA-advKD\n整合照護','DAPA-advKD\nDapa+整合'],
-    datasets:[{label:'eGFR 年下降斜率 (mL/min/1.73m²/年)',
-      data:[-4.9,-1.4,-3.58,-2.37],
-      backgroundColor:['#e7a7a4','#63d6e6','#e7a7a4','#63d6e6'],
-      borderColor:'#081325',borderWidth:1,borderRadius:6}]},
-  options:{...co,plugins:{...co.plugins,legend:{display:false},
-      tooltip:{callbacks:{label:c=>c.parsed.y+' mL/min/1.73m²/年'}}},
-    scales:{...co.scales,
-      x:{...co.scales.x,ticks:{color:'#b3c8e8',callback:function(v){return this.getLabelForValue(v).split('\n')}}},
-      y:{...co.scales.y,title:{display:true,text:'eGFR 斜率（越接近 0 越好）',color:'#9db0cc'},max:0}}}});
+/* advanced CKD slope screenshot-style line chart */
+const advWeeks=[0,4,12,24,36,48,60,72];
+const ickd=[-0.28,0.25,-0.2,-0.95,-2.2,-2.7,-3.0,-2.8];
+const dapaIckd=[0.28,-0.58,-0.65,-1.25,-2.15,-2.42,-2.43,-2.34];
+const ickdErr=[0.45,0.58,0.45,0.48,0.48,0.50,0.55,0.55];
+const dapaErr=[0.32,0.32,0.33,0.32,0.33,0.32,0.33,0.35];
+const advErrorBarPlugin={
+  id:'advErrorBarPlugin',
+  afterDatasetsDraw(chart){
+    if(chart.canvas.id!=='advChart') return;
+    const {ctx,scales:{x,y}}=chart;
+    ctx.save();
+    chart.data.datasets.forEach((ds,di)=>{
+      const meta=chart.getDatasetMeta(di);
+      const errs=ds.error;
+      ctx.strokeStyle=ds.borderColor;
+      ctx.lineWidth=2.5;
+      meta.data.forEach((pt,i)=>{
+        const xp=pt.x;
+        const yTop=y.getPixelForValue(ds.data[i].y+errs[i]);
+        const yBot=y.getPixelForValue(ds.data[i].y-errs[i]);
+        ctx.beginPath();
+        ctx.moveTo(xp,yTop); ctx.lineTo(xp,yBot);
+        ctx.moveTo(xp-7,yTop); ctx.lineTo(xp+7,yTop);
+        ctx.moveTo(xp-7,yBot); ctx.lineTo(xp+7,yBot);
+        ctx.stroke();
+      });
+    });
+    ctx.restore();
+  }
+};
+Chart.register(advErrorBarPlugin);
+new Chart(document.getElementById('advChart'),{type:'line',
+  data:{datasets:[
+      {label:'Integrated CKD care (ICKD)\nSlope: -3.58 (-4.58 to -2.58)',data:advWeeks.map((w,i)=>({x:w,y:ickd[i]})),error:ickdErr,borderColor:'#e00000',backgroundColor:'#e00000',borderWidth:2.4,tension:.08,pointStyle:'rect',pointRadius:6,pointHoverRadius:7,pointBorderColor:'#e00000',pointBackgroundColor:'#e00000'},
+      {label:'Dapagliflozin + ICKD\nSlope: -2.37 (-2.96 to -1.79)',data:advWeeks.map((w,i)=>({x:w,y:dapaIckd[i]})),error:dapaErr,borderColor:'#45a9e6',backgroundColor:'#45a9e6',borderWidth:2.4,tension:.08,pointStyle:'circle',pointRadius:6,pointHoverRadius:7,pointBorderColor:'#45a9e6',pointBackgroundColor:'#45a9e6'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    layout:{padding:{top:18,right:24,bottom:4,left:8}},
+    interaction:{mode:'nearest',intersect:false},
+    plugins:{
+      legend:{position:'bottom',align:'start',labels:{color:'#111',font:{size:13,weight:'500'},usePointStyle:true,pointStyleWidth:12,padding:16}},
+      tooltip:{callbacks:{title:items=>items[0].parsed.x+' 週',label:c=>c.dataset.label.split('\n')[0]+': '+c.parsed.y+' mL/min/1.73m²'}},
+      title:{display:true,text:'Primary outcome: Difference of eGFR slope',align:'start',color:'#202020',font:{size:20,weight:'700'}}
+    },
+    scales:{
+      x:{type:'linear',min:0,max:72,title:{display:true,text:'Weeks since Randomization',color:'#111',font:{size:15,weight:'700'}},ticks:{color:'#111',font:{size:13,weight:'700'},stepSize:12},grid:{display:false},border:{color:'#111',width:2}},
+      y:{min:-5,max:1,title:{display:true,text:['eGFR change from baseline','(ml/min/1.73m²)'],color:'#111',font:{size:14,weight:'700'}},ticks:{color:'#111',font:{size:13,weight:'700'},stepSize:1},grid:{color:c=>c.tick.value===0?'#111':'transparent',borderDash:c=>c.tick.value===0?[2,6]:[],lineWidth:c=>c.tick.value===0?1.5:0},border:{color:'#111',width:2}}
+    }}
+});
 </script>
 </body>
 </html>
