@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGLT2 Inhibitors in CKD｜CKM 症候群的腎臟樞紐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
+<style>
+:root{
+  --bg:#050c1d; --panel:#0b162d; --panel-soft:#101f3e;
+  --text:#e8f1ff; --muted:#9db0cc;
+  --teal:#63d6e6; --gold:#e3c784; --rose:#e7a7a4;
+  --green:#8fcf9d; --line:#1f335f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter','Noto Sans TC',sans-serif;
+  background:radial-gradient(circle at 20% 8%, #0e2144 0%, var(--bg) 52%), var(--bg);
+  color:var(--text); line-height:1.7; font-size:17px;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(#7ccfe544 1px, transparent 1px);
+  background-size:160px 160px; opacity:.45;
+}
+.wrap{position:relative; z-index:1; width:min(1080px, calc(100% - 48px)); margin:0 auto}
+
+/* ============ SIDE NAV RAIL ============ */
+#siderail{
+  position:fixed; top:0; left:0; height:100vh; width:230px; z-index:30;
+  background:linear-gradient(180deg,#091226 0%, #0b162d 100%);
+  border-right:1px solid var(--line);
+  padding:30px 22px; display:flex; flex-direction:column; gap:4px;
+  box-shadow:8px 0 40px rgba(0,0,0,.35);
+}
+.rail-brand{display:flex; align-items:center; gap:11px; margin-bottom:26px}
+.rail-brand .logo{
+  width:38px; height:38px; flex:none; border:1.5px solid var(--teal); border-radius:11px;
+  display:grid; place-items:center; box-shadow:0 0 14px #63d6e655;
+}
+.rail-brand .logo svg{width:22px;height:22px}
+.rail-brand b{font-family:'Noto Serif TC',serif; font-size:1.02rem; letter-spacing:.02em; line-height:1.25}
+.rail-brand small{display:block; color:var(--muted); font-size:.64rem; letter-spacing:.32em; text-transform:uppercase; margin-top:2px}
+.rail-nav a{
+  display:flex; align-items:center; gap:13px; padding:10px 12px; border-radius:10px;
+  color:var(--muted); text-decoration:none; font-size:.86rem; font-weight:500;
+  border:1px solid transparent; transition:.22s;
+}
+.rail-nav a .ico{width:19px; height:19px; flex:none; color:var(--muted); transition:.22s}
+.rail-nav a .num{font-size:.62rem; letter-spacing:.2em; color:var(--line); font-weight:700; margin-left:auto}
+.rail-nav a:hover{background:var(--panel-soft); color:var(--text)}
+.rail-nav a:hover .ico{color:var(--teal)}
+.rail-nav a.active{
+  background:linear-gradient(90deg,#103258,#0d1f3c); color:var(--text);
+  border-color:#27517f; box-shadow:0 0 16px #63d6e622;
+}
+.rail-nav a.active .ico{color:var(--teal); filter:drop-shadow(0 0 6px #63d6e688)}
+.rail-foot{margin-top:auto; color:var(--muted); font-size:.62rem; letter-spacing:.06em; line-height:1.6; border-top:1px solid var(--line); padding-top:16px}
+
+/* mobile top bar + drawer toggle */
+#topbar{display:none}
+.scrim{display:none}
+
+.main{margin-left:230px}
+
+/* ============ HERO ============ */
+.hero{min-height:88vh; display:grid; place-items:center; text-align:center; padding:80px 0 50px}
+.tag{font-size:.72rem; font-weight:600; letter-spacing:.38em; text-transform:uppercase; color:var(--rose); margin-bottom:22px}
+.hero h1{font-family:'Noto Serif TC',serif; font-weight:700; font-size:clamp(2.2rem,6vw,4.4rem); line-height:1.14; letter-spacing:.01em}
+.hero h1 .accent{color:var(--teal)}
+.hero .sub{color:var(--muted); font-size:1.12rem; max-width:680px; margin:24px auto 0}
+.hero .en{font-family:'Inter',sans-serif; font-style:italic; color:var(--gold); font-size:1.02rem; letter-spacing:.02em; margin-top:14px}
+.heartbeat{width:min(720px,90%); height:2px; margin:42px auto 0; position:relative; background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+.heartbeat::after{
+  content:""; position:absolute; inset:-9px 0; background:var(--teal); opacity:.85;
+  clip-path:polygon(0 50%,30% 50%,36% 18%,42% 82%,48% 18%,54% 82%,60% 50%,100% 50%,100% 52%,60% 52%,54% 84%,48% 20%,42% 84%,36% 20%,30% 52%,0 52%);
+}
+.hero-meta{display:flex; gap:34px; justify-content:center; flex-wrap:wrap; margin-top:40px; color:var(--muted); font-size:.84rem}
+.hero-meta span{display:flex; align-items:center; gap:8px}
+.hero-meta svg{width:17px;height:17px;color:var(--teal)}
+
+/* ============ CHAPTER ============ */
+section.ch{padding:74px 0 24px; scroll-margin-top:20px}
+.ch-label{display:flex; align-items:center; gap:12px; font-size:.74rem; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:var(--teal); margin-bottom:14px}
+.ch-label svg{width:20px;height:20px}
+.ch h2{font-family:'Noto Serif TC',serif; font-weight:600; font-size:clamp(1.7rem,3.6vw,2.7rem); line-height:1.22}
+.ch .lead{color:var(--muted); max-width:760px; margin-top:16px; font-size:1.06rem}
+
+/* panels */
+.panel{
+  background:linear-gradient(160deg,#0e1a34,#091226); border:1px solid var(--line);
+  border-radius:18px; padding:26px 26px; margin-top:26px;
+  box-shadow:0 16px 36px rgba(0,0,0,.28);
+}
+.panel h3{font-size:.78rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#d5e7ff; margin-bottom:6px; display:flex; align-items:center; gap:10px}
+.panel h3 svg{width:18px;height:18px;color:var(--teal)}
+.panel .cap{color:var(--muted); font-size:.84rem; margin-bottom:18px}
+.chart-box{position:relative; height:340px}
+@media(max-width:880px){.chart-box{height:300px}}
+.src{color:var(--muted); font-size:.7rem; margin-top:14px; opacity:.8; letter-spacing:.02em}
+
+/* KPI grid */
+.kpi-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:26px}
+.kpi{
+  text-align:left; cursor:pointer; background:linear-gradient(160deg,#0e1a34,#0a1428);
+  border:1px solid var(--line); border-radius:16px; padding:20px 18px; transition:.22s; color:inherit; font-family:inherit;
+}
+.kpi:hover{border-color:#2c5687; box-shadow:0 0 18px #63d6e633; transform:translateY(-3px)}
+.kpi .ic{width:26px;height:26px;color:var(--teal); margin-bottom:12px}
+.kpi .num{font-size:2.05rem; font-weight:700; color:var(--gold); line-height:1}
+.kpi .num small{font-size:.9rem; color:var(--muted); font-weight:500}
+.kpi .lab{font-size:.82rem; color:var(--muted); margin-top:7px}
+.kpi .det{font-size:.8rem; color:var(--text); margin-top:0; max-height:0; overflow:hidden; opacity:0; transition:.3s; border-top:1px solid transparent}
+.kpi.open .det{max-height:160px; opacity:1; margin-top:12px; padding-top:12px; border-top:1px solid var(--line)}
+.kpi .more{font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-top:10px}
+
+/* mini cards */
+.mini-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(225px,1fr)); gap:16px; margin-top:24px}
+.mini{background:linear-gradient(160deg,#0e1a34,#091226); border:1px solid var(--line); border-radius:15px; padding:20px}
+.mini .ic{width:24px;height:24px;color:var(--teal); margin-bottom:11px}
+.mini h4{font-size:.98rem; color:var(--gold); margin-bottom:7px; font-weight:600}
+.mini p{font-size:.85rem; color:var(--muted)}
+
+/* filter / comparison table */
+.filters{display:flex; gap:10px; flex-wrap:wrap; margin:22px 0 6px}
+.fbtn{
+  border:1px solid var(--line); background:transparent; color:var(--muted); cursor:pointer;
+  padding:8px 18px; border-radius:999px; font-family:inherit; font-size:.82rem; font-weight:500; transition:.2s;
+}
+.fbtn:hover{border-color:#2c5687; color:var(--text)}
+.fbtn.active{background:var(--teal); color:#04121f; border-color:var(--teal); font-weight:600}
+.tbl-scroll{overflow-x:auto; margin-top:18px}
+table{width:100%; border-collapse:collapse; min-width:560px; font-size:.86rem}
+th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+th{color:#d5e7ff; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600}
+td .hl{color:var(--gold); font-weight:600}
+td.study{color:var(--teal); font-weight:600}
+tbody tr:hover{background:#0d1d3a}
+
+/* forest plot */
+.forest{margin-top:24px}
+.fp-row{display:grid; grid-template-columns:170px 1fr 120px; align-items:center; gap:14px; padding:9px 0; border-bottom:1px solid #16294d}
+.fp-row.head{border-bottom:1px solid var(--line); color:#d5e7ff; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; padding-bottom:11px}
+.fp-row.group td{color:var(--rose)}
+.fp-name{font-size:.86rem}
+.fp-name.sub{padding-left:16px; color:var(--muted)}
+.fp-name.asia{color:var(--teal); font-weight:600}
+.fp-track{position:relative; height:26px}
+.fp-axis{position:absolute; top:50%; left:0; right:0; height:1px; background:var(--line)}
+.fp-one{position:absolute; top:0; bottom:0; width:1px; background:#3a5party}
+.fp-one{position:absolute; top:-3px; bottom:-3px; width:1px; background:#46679b}
+.fp-ci{position:absolute; top:50%; height:2px; background:var(--muted); transform:translateY(-50%)}
+.fp-pt{position:absolute; top:50%; width:11px; height:11px; border-radius:50%; transform:translate(-50%,-50%); background:var(--gold); box-shadow:0 0 8px #e3c78488}
+.fp-row.asia .fp-pt{background:var(--teal); box-shadow:0 0 10px #63d6e6aa; width:13px;height:13px}
+.fp-row.asia .fp-ci{background:var(--teal); height:3px}
+.fp-hr{font-size:.84rem; color:var(--text); text-align:right; font-variant-numeric:tabular-nums}
+.fp-row.asia .fp-hr{color:var(--teal); font-weight:600}
+.fp-scale{display:grid; grid-template-columns:170px 1fr 120px; gap:14px; margin-top:6px; color:var(--muted); font-size:.66rem}
+.fp-scale .mk{position:relative}
+.fp-scale .mk span{position:absolute; transform:translateX(-50%)}
+
+/* findings & verdict */
+.findings{background:#161202; border-left:4px solid var(--gold); border-radius:0 14px 14px 0; padding:20px 24px; margin-top:24px}
+.findings h4{color:var(--gold); font-size:.95rem; letter-spacing:.02em; margin-bottom:10px; display:flex; align-items:center; gap:9px}
+.findings h4 svg{width:18px;height:18px}
+.findings ul{list-style:none; display:flex; flex-direction:column; gap:9px}
+.findings li{padding-left:20px; position:relative; font-size:.9rem; color:var(--text)}
+.findings li::before{content:""; position:absolute; left:0; top:9px; width:7px;height:7px; border:1.5px solid var(--gold); border-radius:50%}
+
+.verdict{background:#04141c; border-left:3px solid var(--teal); border-radius:0 14px 14px 0; padding:18px 22px; margin-top:20px; font-size:.92rem}
+.verdict b{color:var(--teal)}
+
+/* duo grid */
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px}
+.duo .col{background:linear-gradient(160deg,#0e1a34,#091226); border:1px solid var(--line); border-radius:15px; overflow:hidden}
+.duo .col .hd{padding:12px 18px; font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.duo .col.up .hd{background:#0e2a1c; color:var(--green)}
+.duo .col.dn .hd{background:#2a1416; color:var(--rose)}
+.duo .col ul{list-style:none; padding:16px 18px; display:flex; flex-direction:column; gap:9px}
+.duo .col li{font-size:.85rem; color:var(--text); padding-left:18px; position:relative}
+.duo .col li::before{content:""; position:absolute; left:0; top:8px; width:6px;height:6px; border-radius:50%}
+.duo .col.up li::before{background:var(--green)}
+.duo .col.dn li::before{background:var(--rose)}
+
+/* pillars */
+.pillars{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px}
+.pillar{background:linear-gradient(180deg,#0e1a34,#091226); border:1px solid var(--line); border-radius:15px; padding:20px 16px; text-align:center; transition:.22s}
+.pillar:hover{border-color:#2c5687; transform:translateY(-4px); box-shadow:0 0 18px #63d6e622}
+.pillar .ic{width:30px;height:30px; margin:0 auto 12px}
+.pillar h4{font-size:.92rem; margin-bottom:8px}
+.pillar p{font-size:.74rem; color:var(--muted); line-height:1.55}
+.pillar.p1 .ic{color:var(--rose)} .pillar.p1 h4{color:var(--rose)}
+.pillar.p2 .ic{color:var(--teal)} .pillar.p2 h4{color:var(--teal)}
+.pillar.p3 .ic{color:var(--gold)} .pillar.p3 h4{color:var(--gold)}
+.pillar.p4 .ic{color:var(--green)} .pillar.p4 h4{color:var(--green)}
+
+/* timeline */
+.tline{margin-top:26px; border-left:2px solid var(--line); padding-left:26px; display:flex; flex-direction:column; gap:22px}
+.tnode{position:relative}
+.tnode::before{content:""; position:absolute; left:-33px; top:4px; width:13px;height:13px; border-radius:50%; background:var(--bg); border:2px solid var(--teal); box-shadow:0 0 10px #63d6e688}
+.tnode .yr{color:var(--teal); font-weight:700; font-size:.82rem; letter-spacing:.08em}
+.tnode .ev{font-size:.92rem; margin-top:3px}
+.tnode .ev b{color:var(--gold)}
+.tnode .meta{color:var(--muted); font-size:.8rem; margin-top:3px}
+
+/* take home */
+.thm{background:linear-gradient(160deg,#0e1f3a,#0a1326); border:1px solid #27517f; border-radius:20px; padding:30px; margin-top:26px}
+.thm ol{list-style:none; counter-reset:t; display:flex; flex-direction:column; gap:16px}
+.thm li{counter-increment:t; display:flex; gap:16px; align-items:flex-start; font-size:.96rem}
+.thm li::before{content:counter(t); flex:none; width:32px;height:32px; border-radius:9px; border:1.5px solid var(--teal); color:var(--teal); display:grid; place-items:center; font-weight:700; font-size:.9rem; box-shadow:0 0 12px #63d6e633}
+.thm li b{color:var(--gold)}
+
+footer{text-align:center; padding:70px 0 60px; color:var(--muted); font-size:.8rem}
+footer .hb{width:200px;height:2px; margin:0 auto 22px; background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+.disc{color:var(--muted); font-size:.68rem; margin-top:18px; opacity:.7; max-width:640px; margin-left:auto; margin-right:auto; line-height:1.55}
+
+@media(max-width:880px){
+  #siderail{transform:translateX(-100%); transition:.3s; width:255px}
+  #siderail.open{transform:translateX(0)}
+  .main{margin-left:0}
+  #topbar{display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:25;
+    background:rgba(7,14,30,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:13px 18px}
+  #topbar .mb{background:none; border:1px solid var(--line); border-radius:9px; padding:7px 9px; cursor:pointer; color:var(--text); display:grid; place-items:center}
+  #topbar .mb svg{width:20px;height:20px}
+  #topbar b{font-family:'Noto Serif TC',serif; font-size:.96rem}
+  .scrim.show{display:block; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:20}
+  .duo,.pillars{grid-template-columns:1fr}
+  .fp-row,.fp-scale{grid-template-columns:110px 1fr 78px; gap:8px}
+  .fp-name{font-size:.78rem}
+}
+</style>
+</head>
+<body class="stars">
+
+<!-- ===================== SIDE NAV RAIL ===================== -->
+<aside id="siderail">
+  <div class="rail-brand">
+    <span class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#63d6e6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3C6 3 4 6 4 10c0 5 3 8 5 9 0-3 1-5 3-6"/>
+        <path d="M15 3c3 0 5 3 5 7 0 5-3 8-5 9 0-3-1-5-3-6"/>
+      </svg>
+    </span>
+    <div><b>SGLT2 Inhibitors</b><small>CKM · Renal Hub</small></div>
+  </div>
+  <nav class="rail-nav" id="railnav">
+    <a href="#hero"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>封面總覽<span class="num">00</span></a>
+    <a href="#ch1"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>CKD 負擔與樞紐<span class="num">01</span></a>
+    <a href="#ch2"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V9m7 10V5m7 14v-7"/><path d="M3 19h18"/></svg></span>關鍵試驗證據<span class="num">02</span></a>
+    <a href="#ch3"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="3"/></svg></span>進階 CKD 4–5 期<span class="num">03</span></a>
+    <a href="#ch4"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="0.5"/></svg></span>透析患者研究<span class="num">04</span></a>
+    <a href="#ch5"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></span>亞洲族群與指引<span class="num">05</span></a>
+    <a href="#concl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg></span>核心結論<span class="num">06</span></a>
+  </nav>
+  <div class="rail-foot">
+    黃琪雅 醫師　Chi-Ya Huang<br>奇美醫學中心 · 一般內科 / 腎臟科<br>藥劑部專題演講 · 2026
+  </div>
+</aside>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="main">
+
+<!-- mobile top bar -->
+<div id="topbar">
+  <button class="mb" id="menubtn" aria-label="選單">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <b>SGLT2 Inhibitors</b>
+</div>
+
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="hero">
+    <div>
+      <div class="tag">CKM Syndrome · 第二堂 · 腎臟樞紐</div>
+      <h1>SGLT2 抑制劑<br>在 CKD 的<span class="accent">器官保護</span>策略</h1>
+      <p class="en">Exploring the Vast Horizons of SGLT2 Inhibitors</p>
+      <p class="sub">以腎臟為樞紐，貫穿 心–腎–代 (CKM) 的跨科別治療新趨勢。從 CKD 各分期的實證，看 dapagliflozin 如何延緩腎功能惡化、降低死亡與心臟終點。</p>
+      <div class="heartbeat"></div>
+      <div class="hero-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3C6 3 4 6 4 10c0 5 3 8 5 9"/><path d="M15 3c3 0 5 3 5 7 0 5-3 8-5 9"/></svg>腎臟 樞紐</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg>心臟 終點</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M8 3h8"/></svg>代謝 源頭</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== CHAPTER 1 ===================== -->
+  <section class="ch" id="ch1">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>CHAPTER 01 · 疾病負擔</div>
+    <h2>CKD 的公共衛生衝擊與 CKM 樞紐</h2>
+    <p class="lead">慢性腎臟病在 2017 年居全球死因第 12 位，預估 2040 年將升至第 5 大死因。台灣 stage 3–5 CKD 盛行率達 9.06%，且常被低估；糖尿病與高血壓族群盛行率更高。</p>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V9m7 10V5m7 14v-7"/></svg>CKD 盛行率與共病分布</h3>
+      <p class="cap">台灣與全球的 CKD 流行病學概況（百分比）</p>
+      <div class="chart-box"><canvas id="epiChart"></canvas></div>
+      <p class="src">1. Liyanage T, et al. BMJ Glob Health. 2022;7(1):e007525. 2. Tsai MH, Hsu CY, et al. Nephron. 2018;140(3):175-184.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <button class="kpi" data-det="腎元數量與代謝需求失衡，加速腎功能衰竭。eGFR 每年約自然下降 0.8 mL/min/1.73m²。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M21 8v4h-4"/></svg>
+        <div class="num">~0.8<small> /年</small></div>
+        <div class="lab">eGFR 年齡相關下降 (mL/min/1.73m²)</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="UACR > 300 mg/24h 時，腎元質量僅剩約 50%。蛋白尿是腎功能快速惡化的關鍵警訊。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 9l7-7 7 7"/></svg>
+        <div class="num">50<small>%</small></div>
+        <div class="lab">UACR>300 時剩餘腎元質量</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="糖尿病族群 CKD 盛行率 26.64%、高血壓族群 26.01%，遠高於一般人口。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/></svg>
+        <div class="num">26.6<small>%</small></div>
+        <div class="lab">糖尿病族群 CKD 盛行率</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="SGLT2i 抑制後觸發 adenosine 釋放與入球小動脈收縮，降低腎絲球內壓，逆轉高過濾的病理變化。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5M7 16l5 5 5-5"/></svg>
+        <div class="num">↓<small> 內壓</small></div>
+        <div class="lab">SGLT2i 降低腎絲球內壓</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+    </div>
+
+    <div class="verdict">
+      <b>CKM 三角：</b>代謝為源頭、腎臟為樞紐、心臟為終點，並以 RAAS 串聯。SGLT2i 作用於腎臟樞紐，逆轉腎絲球高過濾，同時延伸保護至心血管終點 —— 這正是本堂課的核心。
+      <p class="src" style="margin-top:10px">Circulation. 2023;148(20):1636-1664. (CKM Syndrome Presidential Advisory)</p>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 2 ===================== -->
+  <section class="ch" id="ch2">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M8 3h8"/></svg>CHAPTER 02 · 臨床實證</div>
+    <h2>SGLT2i 在 CKD 的關鍵試驗</h2>
+    <p class="lead">從 1990 年代的 ACEi/ARB，到 2019 年起的 SGLT2i 與 MRA，CKD 治療進入多支柱時代。三大腎臟終點試驗（CREDENCE、DAPA-CKD、EMPA-KIDNEY）奠定 SGLT2i 的器官保護地位。</p>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3v18"/></svg>CKD 治療里程碑時間軸</h3>
+      <div class="tline">
+        <div class="tnode"><div class="yr">1993–2004</div><div class="ev"><b>ACEi / ARB 時代</b>　Captopril、RENAAL、IDNT、BENEDICT</div><div class="meta">RAAS 阻斷確立蛋白尿與腎臟保護基礎</div></div>
+        <div class="tnode"><div class="yr">2019</div><div class="ev"><b>CREDENCE</b> (Canagliflozin)　SGLT2i 首個專屬腎臟終點試驗</div><div class="meta">N=4401 · T2D · 主要複合終點 HR 0.70</div></div>
+        <div class="tnode"><div class="yr">2020</div><div class="ev"><b>DAPA-CKD</b> (Dapagliflozin)　含/不含 T2DM</div><div class="meta">N=4304 · 因壓倒性療效提早中止 · HR 0.61</div></div>
+        <div class="tnode"><div class="yr">2020–2023</div><div class="ev"><b>FIDELIO-DKD</b> (Finerenone) · <b>EMPA-KIDNEY</b> (Empagliflozin)</div><div class="meta">MRA 與 SGLT2i 並進，建立多支柱治療</div></div>
+      </div>
+      <p class="src">Modified from Heerspink HJL, ESC Congress 2020.</p>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>三大腎臟終點試驗比較</h3>
+      <div class="filters" id="trialFilters">
+        <button class="fbtn active" data-t="all">全部欄位</button>
+        <button class="fbtn" data-t="pop">族群條件</button>
+        <button class="fbtn" data-t="end">終點設計</button>
+      </div>
+      <div class="tbl-scroll">
+        <table id="trialTable">
+          <thead><tr><th>項目</th><th>CREDENCE</th><th>DAPA-CKD</th><th>EMPA-KIDNEY</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="src">NEJM 2019;380:2295-2306 · NEJM 2020;383:1436-1446 · NEJM 2023;388:117-127.</p>
+    </div>
+
+    <div class="ch-label" style="margin-top:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>DAPA-CKD · 核心結果</div>
+    <div class="kpi-grid">
+      <button class="kpi" data-det="主要複合終點：eGFR 持續↓≥50% + ESKD + 腎或心血管死亡。HR 0.61 (0.51–0.72)，NNT=19，相對風險降低 39%。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l5-5 5 5"/></svg>
+        <div class="num">0.61</div><div class="lab">主要複合終點 HR · 39% RRR</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="ESRD 風險下降 36%，HR 0.64 (0.50–0.82)，p=0.0004。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3C6 3 4 6 4 10c0 5 3 8 5 9"/><path d="M15 3c3 0 5 3 5 7 0 5-3 8-5 9"/></svg>
+        <div class="num">↓36<small>%</small></div><div class="lab">ESRD 風險下降</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="心血管死亡或心衰竭住院 HR 0.71 (0.55–0.92)，p=0.0089，相對風險降低 29%。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg>
+        <div class="num">0.71</div><div class="lab">CV死亡/心衰住院 HR · 29% RRR</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="全因死亡 HR 0.69 (0.53–0.88)，p=0.0035，相對風險降低 31%。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2"/></svg>
+        <div class="num">0.69</div><div class="lab">全因死亡 HR · 31% RRR</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>eGFR 斜率：黃金交叉現象</h3>
+      <p class="cap">基線 eGFR 43、平均年齡 62 歲。給藥初期可逆 eGFR dip 後，慢性斜率明顯趨緩 —— 兩線交叉，治療組長期保留更多腎功能。</p>
+      <div class="chart-box"><canvas id="slopeChart"></canvas></div>
+      <p class="src">Dapagliflozin −1.67 vs Placebo −3.59 mL/min/1.73m²/年；差距 1.92 (95% CI 1.61–2.24)。NEJM 2020;383:1436-1446.</p>
+    </div>
+
+    <div class="findings">
+      <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 014 12.7V17H8v-2.3A7 7 0 0112 2z"/></svg>UACR 降低與調節機轉 (Mediator analysis)</h4>
+      <ul>
+        <li>整體族群 UACR 平均降低 29.3%（T2DM 35.1%、非 T2DM 14.8%）。</li>
+        <li>用藥後 <b>第 2 週</b>即出現的 UACR 下降，是腎臟保護效益的早期調節因子。</li>
+        <li>早期 eGFR dip 越明顯、UACR 降幅越大者，長期 eGFR 斜率越平緩（真實世界 Kao YW 2024 一致）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 3 ===================== -->
+  <section class="ch" id="ch3">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg>CHAPTER 03 · 進階 CKD</div>
+    <h2>SGLT2i 在 CKD Stage 4–5</h2>
+    <p class="lead">即使進入 CKD 4–5 期，SGLT2i 仍能發揮減緩 eGFR 下降的效果，並維持良好安全性。DAPA-advKD 更是首個納入 eGFR<20 患者的 SGLT2i 腎臟終點試驗。</p>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>eGFR 斜率改善 (Stage 4–5)</h3>
+      <p class="cap">台灣 AdvKD 研究與 DAPA-advKD：治療前後 eGFR 年下降速率比較</p>
+      <div class="chart-box"><canvas id="advChart"></canvas></div>
+      <p class="src">AdvKD：Hung CC, et al. 2023 TSN Congress. DAPA-advKD：median 84-week follow-up。AstraZeneca does not recommend use outside approved indications.</p>
+    </div>
+
+    <div class="mini-grid">
+      <div class="mini">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>
+        <h4>eGFR 斜率差 1.21</h4><p>DAPA-advKD：dapagliflozin+整合照護較整合照護慢 1.21 mL/min/1.73m²/年下降（P=.019）。</p>
+      </div>
+      <div class="mini">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3C6 3 4 6 4 10c0 5 3 8 5 9"/><path d="M15 3c3 0 5 3 5 7 0 5-3 8-5 9"/></svg>
+        <h4>複合腎臟終點 HR 0.423</h4><p>20% vs 35% 事件率（P=.005）；加入 AKI/HF 住院後 HR 0.456。</p>
+      </div>
+      <div class="mini">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+        <h4>安全性良好</h4><p>嚴重不良事件 31.2% vs 40%；MACE、電解質失衡無顯著差異。首個納入 eGFR<20 的試驗。</p>
+      </div>
+    </div>
+
+    <div class="verdict">
+      在 CKD 4–5 期，dapagliflozin 合併整合照護相較單純整合照護：<b>改善總 eGFR 斜率、改善複合腎臟終點、改善腎臟與心血管複合終點</b>，且安全。仍可見可逆的 eGFR dip 血流動力學變化。
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 4 ===================== -->
+  <section class="ch" id="ch4">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>CHAPTER 04 · 透析患者</div>
+    <h2>SGLT2i 在透析患者：進行中的探索</h2>
+    <p class="lead">透析族群的證據仍在累積。多個血液透析與腹膜透析的臨床試驗正在進行中，聚焦 NT-proBNP、左心室質量、超過濾與藥物動力學等終點。</p>
+
+    <div class="duo">
+      <div class="col up">
+        <div class="hd">血液透析 (HD) 進行中試驗</div>
+        <ul>
+          <li><b>DARE-ESRD</b> (巴西, N=80)：6 個月 NT-proBNP 變化</li>
+          <li><b>RENAL LIFECYCLE</b> (歐澳, N=1500)：全因死亡 + 腎衰竭 + 心衰住院複合終點</li>
+          <li><b>DAPA-HD</b> (奧地利, N=108)：6 個月左心室質量指數變化</li>
+          <li><b>SDHF</b> (中國, N=20)：低血糖/UTI 安全性、NT-proBNP</li>
+        </ul>
+      </div>
+      <div class="col dn">
+        <div class="hd">腹膜透析 (PD) 進行中試驗</div>
+        <ul>
+          <li>Dapagliflozin 對 PD 超過濾的影響 (N=20, 已完成)</li>
+          <li>SGLT2i 降低腹膜葡萄糖吸收 (丹麥, N=10)</li>
+          <li>DARE-ESKD 1：透析患者藥物動力學 (已完成)</li>
+          <li>透析患者藥動學發表：Pubmed 37227937</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <b>研究啟示：</b>SGLT2 抑制如何影響 CKD 的基本概念（透析、腎移植、合併治療）仍是未來焦點。需持續關注 SGLT2i 在透析與移植病人的相關研究。
+      <p class="src" style="margin-top:8px">Nephrol Dial Transplant. 2020;gfaa329.</p>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 5 ===================== -->
+  <section class="ch" id="ch5">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18"/></svg>CHAPTER 05 · 亞洲族群與指引</div>
+    <h2>DAPA-CKD 亞洲族群分析與治療指引</h2>
+    <p class="lead">亞洲族群是 DAPA-CKD 最大單一區域（31.3%，N=1346）。相較其他區域：年齡較輕、BMI 較低、心血管病史比例最低 —— 反映東亞 CKD 病人特性；但療效與安全性仍穩定一致。</p>
+
+    <div class="kpi-grid">
+      <button class="kpi" data-det="亞洲族群主要複合終點 HR 0.70 (0.48–1.00)，相對風險降低 30%。事件率 4.2 vs 6.3 (每100人年)，絕對風險差 3.3%。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        <div class="num">0.70</div><div class="lab">亞洲主要複合終點 HR · 30% RRR</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="亞洲族群嚴重不良事件 OR 0.77 (0.60–0.99)，21.9% vs 26.8% —— 不增反減。腎臟事件、截肢、DKA 未增加。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>
+        <div class="num">0.77</div><div class="lab">嚴重不良事件 OR · 反而較少</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="四大區域（亞洲、歐洲、拉美、北美）interaction P=0.77，無顯著區域間效應修飾，療效可直接外推。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg>
+        <div class="num">0.77<small> P值</small></div><div class="lab">區域間無效應修飾</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+      <button class="kpi" data-det="亞洲族群佔 DAPA-CKD 全體的 31.3%，為四大區域中最大單一族群，中位追蹤 1.9 年。">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+        <div class="num">31.3<small>%</small></div><div class="lab">亞洲為最大單一區域</div>
+        <div class="det"></div><div class="more">點擊展開</div>
+      </button>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 12h14"/><circle cx="9" cy="8" r="2"/></svg>森林圖：四大區域療效一致</h3>
+      <p class="cap">主要與次要終點 HR (95% CI)，dapagliflozin vs placebo。亞洲以青色標示；interaction P=0.77 無效應修飾。</p>
+      <div class="forest" id="forest"></div>
+      <p class="src">Vart P, et al. Efficacy and Safety of Dapagliflozin Across Major Geographic Regions. Kidney Int Rep. 2022;7(4):699-707.</p>
+    </div>
+
+    <div class="panel">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19h16M9 8h6M9 12h6"/></svg>2024 指引與健保給付更新</h3>
+      <div class="mini-grid" style="margin-top:6px">
+        <div class="mini">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg>
+          <h4>KDIGO 2024：一線治療</h4><p>CKD+T2D 且 eGFR≥20（1A）；CKD+心衰或 UACR≥200（1A）；eGFR 20–45 且 UACR<200（2B）。起始後即使 eGFR<20 仍可續用。</p>
+        </div>
+        <div class="mini">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <h4>仿單更新 (2024.4.2)</h4><p>衛福部 Dapagliflozin：<b>透析禁忌症已移除</b>，心腎保護族群再擴增。</p>
+        </div>
+        <div class="mini">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M7 15h4M3 6h18v12H3z"/></svg>
+          <h4>健保給付條件</h4><p>CKD 起始：eGFR 25–60、UACR 200–5000 mg/g；eGFR<15 應停藥。需參加 Pre-ESRD 或初期 CKD 整合照護方案。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch-label" style="margin-top:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8m6 12V4m6 16v-9m4 9V10"/></svg>多支柱治療策略</div>
+    <p class="lead">2024 ERA 提出 CKD 與糖尿病的「四（N）支柱」治療：每一柱針對不同病理機轉，組合可大幅提升心血管、腎臟與存活效益。</p>
+    <div class="pillars">
+      <div class="pillar p1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M5 9l7-7 7 7"/></svg><h4>RAAS 阻斷</h4><p>降出球小動脈張力、減少高過濾與內皮功能異常</p></div>
+      <div class="pillar p2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3C6 3 4 6 4 10c0 5 3 8 5 9"/><path d="M15 3c3 0 5 3 5 7 0 5-3 8-5 9"/></svg><h4>SGLT2i</h4><p>增入球小動脈張力、改善管球回饋、降蛋白尿與發炎纖維化</p></div>
+      <div class="pillar p3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l3 6 6 1-4 5 1 6-6-3-6 3 1-6-4-5 6-1z"/></svg><h4>Finerenone</h4><p>降發炎、纖維化、組織重塑與蛋白尿（ns-MRA）</p></div>
+      <div class="pillar p4"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/></svg><h4>Semaglutide</h4><p>降體重、血脂異常、氧化壓力與內皮功能異常（GLP-1 RA）</p></div>
+    </div>
+    <p class="src">Tuttle KR, 2024 ERA. Diabetes Care. 2023;46(9):1574-1586. Neuen BL, et al. CJASN 2024.</p>
+  </section>
+
+  <!-- ===================== CONCLUSION ===================== -->
+  <section class="ch" id="concl">
+    <div class="ch-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-7-8.8"/></svg>CHAPTER 06 · Take Home Message</div>
+    <h2>核心結論</h2>
+    <div class="thm">
+      <ol>
+        <li><b>Dapagliflozin</b> 是目前治療慢性腎臟病上證據力最充足的 SGLT-2i。</li>
+        <li>國內外指引一致：<b>SGLT-2i 在延緩腎臟惡化上有顯著幫助</b>，2024 KDIGO 已納入一線治療。</li>
+        <li>Dapagliflozin 用於 <b>advCKD</b> 病人可改善 eGFR slope、複合腎臟/心腎終點，且安全。</li>
+        <li>衛福部 Dapagliflozin：<b>透析禁忌症已移除</b>並新增健保給付條件。</li>
+        <li>需持續關注 SGLT-2i 在 <b>透析病人、移植病人</b> 的相關研究。</li>
+        <li><b>四（N）本柱與「混搭」的時代</b>已經來臨 —— RAAS、SGLT2i、Finerenone、GLP-1 RA 的組合治療。</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div class="hb"></div>
+    <p>感謝聆聽　·　黃琪雅 醫師　Chi-Ya Huang</p>
+    <p style="color:var(--teal);margin-top:6px">奇美醫學中心 · 一般內科 / 腎臟科</p>
+    <p class="disc">本網頁內容整理自學術簡報供教學討論使用。處方藥物請參考衛生福利部核准仿單。部分進階 CKD 與透析資料屬 Medical Reactive use；AstraZeneca does not recommend the use of drugs outside its approved indications. 各試驗未進行頭對頭比較，不宜直接比較結論。</p>
+  </footer>
+
+</div><!--/wrap-->
+</div><!--/main-->
+
+<script>
+/* ---------- mobile drawer ---------- */
+const rail=document.getElementById('siderail'), scrim=document.getElementById('scrim');
+document.getElementById('menubtn').addEventListener('click',()=>{rail.classList.add('open');scrim.classList.add('show')});
+scrim.addEventListener('click',()=>{rail.classList.remove('open');scrim.classList.remove('show')});
+document.querySelectorAll('#railnav a').forEach(a=>a.addEventListener('click',()=>{rail.classList.remove('open');scrim.classList.remove('show')}));
+
+/* ---------- scroll-linked active nav ---------- */
+const navLinks=[...document.querySelectorAll('#railnav a')];
+const sections=navLinks.map(a=>document.querySelector(a.getAttribute('href')));
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id='#'+e.target.id;
+      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===id));
+    }
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+sections.forEach(s=>s&&obs.observe(s));
+
+/* ---------- KPI expand ---------- */
+document.querySelectorAll('.kpi').forEach(b=>{
+  b.querySelector('.det').textContent=b.dataset.det;
+  b.addEventListener('click',()=>{
+    const open=b.classList.toggle('open');
+    b.querySelector('.more').textContent=open?'點擊收合':'點擊展開';
+  });
+});
+
+/* ---------- trial comparison table ---------- */
+const trialData=[
+  {k:'藥物/劑量',cat:'pop',v:['Canagliflozin 100mg','Dapagliflozin 10mg','Empagliflozin 10mg']},
+  {k:'發表年',cat:'pop',v:['2019 (NEJM)','2020 (NEJM)','2022 (NEJM)']},
+  {k:'收案人數 N',cat:'pop',v:['4401','4304','6609']},
+  {k:'中位追蹤',cat:'pop',v:['2.6 年','2.4 年','2 年']},
+  {k:'病人族群',cat:'pop',v:['T2D','含/不含 T2D (排除 T1D)','含/不含 T2D (排除 T1D)']},
+  {k:'eGFR 收案條件',cat:'end',v:['≥30 至 <90','≥25 至 <75','≥20 至 <45，或 45–90 併 UACR≥200']},
+  {k:'UACR 收案條件',cat:'end',v:['>300 至 ≤5000','≥200 至 ≤5000','≥200 mg/g']},
+  {k:'主要終點',cat:'end',v:['Scr 加倍 / ESRD / 腎或CV死亡','eGFR↓≥50% / ESRD / 腎或CV死亡','eGFR↓≥40% / ESRD / 腎死亡；CV死亡']},
+  {k:'提早中止原因',cat:'end',v:['療效顯著','壓倒性療效','明確正向療效']},
+];
+function renderTrial(filter){
+  const tb=document.querySelector('#trialTable tbody'); tb.innerHTML='';
+  trialData.filter(r=>filter==='all'||r.cat===filter).forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="study">${r.k}</td>`+r.v.map((x,i)=>`<td>${i===1?'<span class="hl">'+x+'</span>':x}</td>`).join('');
+    tb.appendChild(tr);
+  });
+}
+renderTrial('all');
+document.querySelectorAll('#trialFilters .fbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#trialFilters .fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); renderTrial(b.dataset.t);
+  });
+});
+
+/* ---------- forest plot ---------- */
+const forestData=[
+  {grp:'主要複合終點'},
+  {name:'整體族群',hr:0.61,lo:0.51,hi:0.72},
+  {name:'亞洲 (n=1346)',hr:0.70,lo:0.48,hi:1.00,asia:true},
+  {name:'歐洲 (n=1233)',hr:0.60,lo:0.43,hi:0.85,sub:true},
+  {name:'拉美 (n=912)',hr:0.61,lo:0.43,hi:0.86,sub:true},
+  {name:'北美 (n=813)',hr:0.51,lo:0.34,hi:0.76,sub:true},
+  {grp:'腎臟複合終點'},
+  {name:'整體',hr:0.56,lo:0.45,hi:0.68},
+  {name:'亞洲',hr:0.64,lo:0.43,hi:0.95,asia:true},
+  {grp:'CV死亡 / 心衰住院'},
+  {name:'整體',hr:0.71,lo:0.55,hi:0.92},
+  {name:'亞洲',hr:0.77,lo:0.38,hi:1.57,asia:true},
+  {grp:'全因死亡'},
+  {name:'整體',hr:0.69,lo:0.53,hi:0.88},
+  {name:'亞洲',hr:0.75,lo:0.39,hi:1.46,asia:true},
+];
+// log scale 0.25 -> 2 mapped to 0..100%
+const LMIN=Math.log(0.25), LMAX=Math.log(2);
+const posOf=v=>((Math.log(v)-LMIN)/(LMAX-LMIN))*100;
+const fp=document.getElementById('forest');
+fp.innerHTML=`<div class="fp-row head"><div>終點 / 區域</div><div>HR (偏向 Dapa ← → 偏向 Placebo)</div><div style="text-align:right">HR (95% CI)</div></div>`;
+forestData.forEach(d=>{
+  if(d.grp){fp.insertAdjacentHTML('beforeend',`<div class="fp-row" style="border:none"><div class="fp-name" style="color:var(--rose);font-weight:600;letter-spacing:.04em">${d.grp}</div><div></div><div></div></div>`);return;}
+  const left=posOf(d.lo), right=posOf(d.hi), pt=posOf(d.hr), one=posOf(1);
+  fp.insertAdjacentHTML('beforeend',`
+    <div class="fp-row ${d.asia?'asia':''}">
+      <div class="fp-name ${d.sub?'sub':''} ${d.asia?'asia':''}">${d.name}</div>
+      <div class="fp-track">
+        <div class="fp-axis"></div>
+        <div class="fp-one" style="left:${one}%"></div>
+        <div class="fp-ci" style="left:${left}%;width:${right-left}%"></div>
+        <div class="fp-pt" style="left:${pt}%"></div>
+      </div>
+      <div class="fp-hr">${d.hr.toFixed(2)} (${d.lo.toFixed(2)}–${d.hi.toFixed(2)})</div>
+    </div>`);
+});
+fp.insertAdjacentHTML('beforeend',`<div class="fp-scale"><div></div><div class="mk"><span style="left:${posOf(0.25)}%">0.25</span><span style="left:${posOf(0.5)}%">0.5</span><span style="left:${posOf(1)}%">1.0</span><span style="left:${posOf(2)}%">2.0</span></div><div></div></div>`);
+
+/* ---------- Chart.js common ---------- */
+const co={responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{labels:{color:'#d3e4ff',font:{size:13},usePointStyle:true,pointStyleWidth:10}}},
+  scales:{x:{ticks:{color:'#b3c8e8'},grid:{color:'#1f335f'}},y:{ticks:{color:'#b3c8e8'},grid:{color:'#1f335f'}}}};
+Chart.defaults.font.family="'Inter','Noto Sans TC',sans-serif";
+
+/* epidemiology bar */
+new Chart(document.getElementById('epiChart'),{type:'bar',
+  data:{labels:['台灣 stage 3–5','全球 (低標)','全球 (高標)','糖尿病族群','高血壓族群'],
+    datasets:[{label:'CKD 盛行率 (%)',
+      data:[9.06,8,16,26.64,26.01],
+      backgroundColor:['#63d6e6','#3d7f8f','#3d7f8f','#e3c784','#e7a7a4'],
+      borderColor:'#081325',borderWidth:1,borderRadius:6}]},
+  options:{...co,plugins:{...co.plugins,legend:{display:false}},
+    scales:{...co.scales,y:{...co.scales.y,title:{display:true,text:'盛行率 (%)',color:'#9db0cc'}}}}});
+
+/* eGFR slope line - golden crossover */
+const months=[0,2,4,8,12,16,20,24,28];
+function slope(base,rate,dip){return months.map(m=>{const y=m/12; return +(base - (dip||0) - rate*y).toFixed(2);});}
+new Chart(document.getElementById('slopeChart'),{type:'line',
+  data:{labels:months.map(m=>m+' 月'),
+    datasets:[
+      {label:'Placebo (−3.59/年)',data:slope(43,3.59,0),borderColor:'#e7a7a4',backgroundColor:'#e7a7a422',borderWidth:2.5,tension:.15,fill:true,pointRadius:0},
+      {label:'Dapagliflozin (−1.67/年)',data:months.map(m=>{const y=m/12; const dip=m<=1?1.8*m:1.8; return +(43-dip-1.67*y).toFixed(2);}),borderColor:'#63d6e6',backgroundColor:'#63d6e622',borderWidth:2.5,tension:.15,fill:true,pointRadius:0}
+    ]},
+  options:{...co,
+    plugins:{...co.plugins,tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' mL/min/1.73m²'}}},
+    scales:{...co.scales,y:{...co.scales.y,title:{display:true,text:'eGFR (mL/min/1.73m²)',color:'#9db0cc'},min:30,max:45}}}});
+
+/* advanced CKD slope before/after bar */
+new Chart(document.getElementById('advChart'),{type:'bar',
+  data:{labels:['AdvKD\n治療前','AdvKD\n治療後','DAPA-advKD\n整合照護','DAPA-advKD\nDapa+整合'],
+    datasets:[{label:'eGFR 年下降斜率 (mL/min/1.73m²/年)',
+      data:[-4.9,-1.4,-3.58,-2.37],
+      backgroundColor:['#e7a7a4','#63d6e6','#e7a7a4','#63d6e6'],
+      borderColor:'#081325',borderWidth:1,borderRadius:6}]},
+  options:{...co,plugins:{...co.plugins,legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.y+' mL/min/1.73m²/年'}}},
+    scales:{...co.scales,
+      x:{...co.scales.x,ticks:{color:'#b3c8e8',callback:function(v){return this.getLabelForValue(v).split('\n')}}},
+      y:{...co.scales.y,title:{display:true,text:'eGFR 斜率（越接近 0 越好）',color:'#9db0cc'},max:0}}}});
+</script>
+</body>
+</html>
